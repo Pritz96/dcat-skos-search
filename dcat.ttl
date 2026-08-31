@@ -1,0 +1,54 @@
+@prefix dcat:    <http://www.w3.org/ns/dcat#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos:    <http://www.w3.org/2004/02/skos/core#> .
+
+<http://environment.data.gov.uk> a dcat:Catalog ;
+    dcterms:title "Environment Agency Data Catalogue" ;
+    dcat:catalog <http://environment.data.gov.uk/water-quality>, <http://environment.data.gov.uk/ecology-and-fish>;
+    dcat:dataset <http://environment.data.gov.uk/statistical-modifiers> .
+
+<http://environment.data.gov.uk/statistical-modifiers> a skos:ConceptScheme, dcat:Dataset ;
+    skos:notation "statistical-modifiers" ;
+    skos:prefLabel "Statistical Modifiers" ;
+    skos:definition "The definition for the root statistical modifiers concept scheme" .
+
+<http://environment.data.gov.uk/statistical-modifiers/mean> a skos:Concept ;
+    skos:inScheme <http://environment.data.gov.uk/statistical-modifiers> ;
+    skos:notation "mean" ;
+    skos:prefLabel "Mean"@en ;
+    skos:definition "The arithmetic average of a set of values, calculated by summing the values and dividing by the number of values."@en .
+
+<http://environment.data.gov.uk/water-quality> a dcat:Catalog ;
+    dcterms:title "Water Quality" ;
+    dcat:inCatalog <http://environment.data.gov.uk> ;
+    dcat:dataset <http://environment.data.gov.uk/water-quality/determinands> .
+
+<http://environment.data.gov.uk/water-quality/determinands> a skos:ConceptScheme, dcat:Dataset ;
+    skos:notation "determinands" ;
+    skos:prefLabel "Water Quality Determinands" ;
+    skos:definition "The definition for the water quality determinands concept scheme" .
+
+<http://environment.data.gov.uk/water-quality/determinands/nitrate> a skos:Concept ;
+    skos:inScheme <http://environment.data.gov.uk/water-quality/determinands> ;
+    skos:notation "NO3-N" ;
+    skos:prefLabel "Nitrate"@en ;
+    skos:definition "A determinand measuring the concentration of nitrate ions in a water sample."@en .
+
+<http://environment.data.gov.uk/ecology-and-fish> a dcat:Catalog ;
+    dcterms:title "Water Quality" ;
+    dcat:inCatalog <http://environment.data.gov.uk> ;
+    dcat:dataset <http://environment.data.gov.uk/ecology-and-fish/benthic> .
+
+<http://environment.data.gov.uk/ecology-and-fish/benthic> a dcat:Dataset ;
+    dcat:dataset <http://environment.data.gov.uk/ecology-and-fish/benthic/statistical-modifiers> .
+
+<http://environment.data.gov.uk/ecology-and-fish/benthic/statistical-modifiers> a dcat:Dataset, skos:ConceptScheme ;
+    skos:notation "statistical-modifiers" ;
+    skos:prefLabel "Benthic Statistical Modifiers" ;
+    skos:definition "Benthic Statistical Modifiers" .
+
+<http://environment.data.gov.uk/ecology-and-fish/benthic/statistical-modifiers/nitrate> a skos:Concept ;
+    skos:inScheme <http://environment.data.gov.uk/ecology-and-fish/benthic/statistical-modifiers> ;
+    skos:notation "NO3-N" ;
+    skos:prefLabel "Nitrate"@en ;
+    skos:definition "A determinand measuring the concentration of nitrate ions in a water sample."@en .

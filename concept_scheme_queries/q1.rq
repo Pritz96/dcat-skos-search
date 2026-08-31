@@ -1,0 +1,21 @@
+# Search for all ConceptSchemes under the top level based on notation and definition
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+
+SELECT DISTINCT ?resource ?notation ?prefLabel ?definition
+WHERE {
+   ?dcatUri (dcat:dataset|dcat:catalog)* ?resource . 
+   ?resource a skos:ConceptScheme . 
+   OPTIONAL {
+      ?resource skos:notation ?notation . 
+   }
+   OPTIONAL {
+      ?resource skos:prefLabel ?prefLabel . 
+   }
+   OPTIONAL {
+      ?resource skos:definition ?definition . 
+   }
+   BIND ("rate" AS ?searchTerm)
+   FILTER (?dcatUri IN (<http://environment.data.gov.uk>))
+   FILTER (CONTAINS(LCASE(STR(?notation)), LCASE(?searchTerm)) || CONTAINS(LCASE(STR(?definition)), LCASE(?searchTerm)))
+}

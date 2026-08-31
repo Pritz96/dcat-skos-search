@@ -1,0 +1,30 @@
+
+# Starting at the uri of <http://environment.data.gov.uk> walk the DCAT tree to collect all of the ConceptSchemes under it
+# This can be used with one or more dcatUri's (just add more uri's to the values object if you need to add multiple)
+# If you just need to get the ConceptSchemes at the level of the dcatUri/s provided you can remove the *
+# If you need to only do a search across notation or prefLabel then you would delete the definition line in the FILTER section but you would keep the OPTIONAL untouched
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+
+SELECT DISTINCT ?resource ?notation ?prefLabel ?definition
+WHERE {
+
+  ?dcatUri (dcat:dataset|dcat:catalog)* ?resource .
+  ?resource a skos:ConceptScheme .
+
+  FILTER (?dcatUri IN (
+    <http://environment.data.gov.uk>,
+    <http://environment.data.gov.uk/water-quality>
+  ))
+
+  OPTIONAL { ?resource skos:notation ?notation }
+  OPTIONAL { ?resource skos:prefLabel ?prefLabel }
+  OPTIONAL { ?resource skos:definition ?definition }
+  
+  BIND("" AS ?searchTerm)
+  FILTER (
+    CONTAINS(LCASE(STR(?notation)), LCASE(?searchTerm)) ||
+    CONTAINS(LCASE(STR(?prefLabel)), LCASE(?searchTerm)) ||
+    CONTAINS(LCASE(STR(?definition)), LCASE(?searchTerm))
+  )
+}
